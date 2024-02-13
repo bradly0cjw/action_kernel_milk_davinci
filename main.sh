@@ -4,7 +4,7 @@
 # ------------------------------------------------------------
 
 # Kernel
-KERNEL_NAME="MilkKernel"
+KERNEL_NAME="PixelOSWithKSU"
 KERNEL_GIT="https://github.com/SchweGELBin/kernel_milk_davinci.git"
 KERNEL_BRANCH="pixelos-14.0"
 
