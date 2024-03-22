@@ -26,7 +26,7 @@ jobs:
           
     - name: Install cross
       # run: cargo install cross --locked # Hotfix, "--locked" should get removed later
-    - run:  cargo install cross --git https://github.com/cross-rs/cross --rev 66845c1
+      run:  cargo install cross --git https://github.com/cross-rs/cross --rev 66845c1
 
 
     - name: Build ksud
