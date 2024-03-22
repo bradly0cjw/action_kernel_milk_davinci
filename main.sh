@@ -12,7 +12,7 @@ KERNEL_BRANCH="pixelos-14.0"
 KERNELSU_REPO="tiann/KernelSU"
 REMOVE_SIG_VER="true"
 KSU_ENABLED="true"
-KSU_BRANCH="v0.9.2"
+KSU_BRANCH=""
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/SchweGELBin/AnyKernel3_davinci.git"
@@ -69,9 +69,7 @@ aria2c -s16 -x16 -k1M $CLANG_DLINK -o Clang.tar.gz
 tar -C Clang/ -zxvf Clang.tar.gz
 rm -rf Clang.tar.gz
 
-if [[ $KSU_BRANCH == "" ]]; then
-    KSU_BRANCH="main"
-fi
+
 CLANG_VERSION="$($CLANG_DIR/clang --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
 CLANG_VERSION=${CLANG_VERSION::-3} # May get removed later
 LLD_VERSION="$($CLANG_DIR/ld.lld --version | head -n 1 | cut -f1 -d "(" | sed 's/.$//')"
@@ -93,8 +91,11 @@ cd $KERNEL_DIR
 
 msg "KernelSU"
 if [[ $KSU_ENABLED == "true" ]]; then
-    curl -LSs "https://raw.githubusercontent.com/$KERNELSU_REPO/$KSU_BRANCH/kernel/setup.sh" | bash -s main
-
+    if [[ $KSU_BRANCH != "" ]]; then
+        curl -LSs "https://raw.githubusercontent.com/$KERNELSU_REPO/main/kernel/setup.sh" | bash -
+    else
+        curl -LSs "https://raw.githubusercontent.com/$KERNELSU_REPO/main/kernel/setup.sh" | bash -s $KSU_BRANCH
+    fi
     echo "CONFIG_KPROBES=y" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_HAVE_KPROBES=y" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_KPROBE_EVENTS=y" >> $DEVICE_DEFCONFIG_FILE
