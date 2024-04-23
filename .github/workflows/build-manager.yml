@@ -1,6 +1,7 @@
 name: Build Manager
 
-on: [workflow_call]
+on:
+  workflow_call:
 
 jobs:
   build-ksud:
@@ -8,15 +9,10 @@ jobs:
       matrix:
         include:
           - target: aarch64-linux-android
-            os: ubuntu-latest
           - target: x86_64-linux-android
-            os: ubuntu-latest
     uses: ./.github/workflows/ksud.yml
     with:
       target: ${{ matrix.target }}
-      os: ${{ matrix.os }}
-      pack_lkm: false
-      use_cache: false
 
   build-manager:
     needs: build-ksud
@@ -33,24 +29,24 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: "17"
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/gradle-build-action@v2
         with:
           gradle-home-cache-cleanup: true
 
       - name: Download arm64 ksud
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: ksud-aarch64-linux-android
           path: .
 
       - name: Download x86_64 ksud
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: ksud-x86_64-linux-android
           path: .
@@ -64,17 +60,15 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          {
-            echo 'org.gradle.parallel=true'
-            echo 'org.gradle.vfs.watch=true'
-            echo 'org.gradle.jvmargs=-Xmx2048m'
-            echo 'android.native.buildOutput=verbose'
-          } >> gradle.properties
+          echo 'org.gradle.parallel=true' >> gradle.properties
+          echo 'org.gradle.vfs.watch=true' >> gradle.properties
+          echo 'org.gradle.jvmargs=-Xmx2048m' >> gradle.properties
+          echo 'android.native.buildOutput=verbose' >> gradle.properties
           sed -i 's/org.gradle.configuration-cache=true//g' gradle.properties
           ./gradlew clean assembleRelease
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: manager
           path: manager/app/build/outputs/apk/release/*.apk
