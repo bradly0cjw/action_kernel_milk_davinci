@@ -13,7 +13,7 @@ KERNEL_BRANCH="fourteen"
 # KernelSU
 KERNELSU_REPO="tiann/KernelSU"
 REMOVE_SIG_VER="true"
-KSU_ENABLED="true"
+KSU_ENABLED="false"
 KSU_BRANCH=""
 
 # Anykernel3
