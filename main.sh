@@ -4,7 +4,7 @@
 # ------------------------------------------------------------
 
 # Kernel
-KERNEL_NAME="MilkKernel"
+KERNEL_NAME="PixelOSWithKSU"
 KERNEL_GIT="https://github.com/SchweGELBin/kernel_milk_davinci.git"
 KERNEL_BRANCH="vantom-14"
 KERNEL_TYPE="vantom"
@@ -12,6 +12,7 @@ KERNEL_TYPE="vantom"
 # KernelSU
 KERNELSU_REPO="tiann/KernelSU"
 KSU_ENABLED="false"
+KSU_BRANCH=""
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/SchweGELBin/AnyKernel3_davinci.git"
@@ -126,7 +127,11 @@ cd $KERNEL_DIR
 
 msg "KernelSU"
 if [[ $KSU_ENABLED == "true" ]]; then
-    curl -LSs "https://raw.githubusercontent.com/$KERNELSU_REPO/main/kernel/setup.sh" | bash -s main
+    if [[ $KSU_BRANCH != "" ]]; then
+        curl -LSs "https://raw.githubusercontent.com/$KERNELSU_REPO/main/kernel/setup.sh" | bash -
+    else
+        curl -LSs "https://raw.githubusercontent.com/$KERNELSU_REPO/main/kernel/setup.sh" | bash -s $KSU_BRANCH
+    fi
 
     echo "CONFIG_KPROBES=y" >> $DEVICE_DEFCONFIG_FILE
     echo "CONFIG_HAVE_KPROBES=y" >> $DEVICE_DEFCONFIG_FILE
