@@ -5,14 +5,14 @@
 
 # Kernel
 KERNEL_NAME="PixelOSWKSU"
-KERNEL_GIT="https://github.com/SchweGELBin/kernel_milk_davinci.git"
+KERNEL_GIT="https://github.com/PixelOS-Devices/kernel_xiaomi_sm6150.git"
 KERNEL_BRANCH="fourteen"
 KERNEL_TYPE="vantom"
 
 # KernelSU
 KERNELSU_REPO="tiann/KernelSU"
 KSU_ENABLED="true"
-KSU_TARGET=
+KSU_TARGET=""
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/SchweGELBin/AnyKernel3_davinci.git"
