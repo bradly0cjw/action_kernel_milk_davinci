@@ -6,7 +6,7 @@
 # Kernel
 KERNEL_NAME="PixelOSWKSU"
 KERNEL_GIT="https://github.com/SchweGELBin/kernel_milk_davinci.git"
-KERNEL_BRANCH="vantom-14"
+KERNEL_BRANCH="fourteen"
 KERNEL_TYPE="vantom"
 
 # KernelSU
