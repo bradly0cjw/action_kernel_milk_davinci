@@ -16,7 +16,7 @@ KSU_TARGET=""
 
 # Anykernel3
 ANYKERNEL3_GIT="https://github.com/SchweGELBin/AnyKernel3_davinci.git"
-ANYKERNEL3_BRANCH="master"
+ANYKERNEL3_BRANCH="v0.9.5"
 
 # Build
 DEVICE_CODE="davinci"
